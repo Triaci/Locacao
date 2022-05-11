@@ -9,7 +9,7 @@ public class Usuario_Model extends Base_Model{
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private UUID Id;
 
     @Column
     private String nome;
@@ -19,6 +19,9 @@ public class Usuario_Model extends Base_Model{
 
     @Column
     private String telefone;
+
+    @OneToOne
+    private Usuario_Model usuario_model;
 
 
     public UUID getId() {
