@@ -25,11 +25,11 @@ public class Usuario_Model extends Base_Model{
 
 
     public UUID getId() {
-        return id;
+        return Id;
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getNome() {
