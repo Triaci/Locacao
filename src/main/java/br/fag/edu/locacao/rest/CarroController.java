@@ -13,7 +13,7 @@ import java.util.List;
 public class CarroController extends BaseController<CarroModel>{
 
     @Override
-    public List<CarroModel> lisat() {
+    public List<CarroModel> list() {
         return new ArrayList<>();
     }
 }
