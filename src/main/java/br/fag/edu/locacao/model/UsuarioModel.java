@@ -5,7 +5,7 @@ import java.util.UUID;
 
 @Entity
 @Table
-public class Usuario_Model extends Base_Model{
+public class UsuarioModel extends BaseModel {
 
     @Id
     @GeneratedValue
@@ -21,7 +21,7 @@ public class Usuario_Model extends Base_Model{
     private String telefone;
 
     @OneToOne
-    private Usuario_Model usuario_model;
+    private UsuarioModel usuario_model;
 
 
     public UUID getId() {

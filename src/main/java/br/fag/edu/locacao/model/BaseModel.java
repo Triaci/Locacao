@@ -3,7 +3,7 @@ package br.fag.edu.locacao.model;
 import javax.persistence.*;
 import java.util.Date;
 
-public class Base_Model {
+public class BaseModel {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtCreate;

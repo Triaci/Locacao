@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Table
-public class Locacao_Model extends Base_Model {
+public class LocacaoModel extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,12 +23,12 @@ public class Locacao_Model extends Base_Model {
     private Date dtFim;
 
     @OneToOne
-    private Carro_Model Id_Carro;
+    private CarroModel Id_Carro;
 
     @OneToOne
-    private Usuario_Model Id_Usuario;
+    private UsuarioModel Id_Usuario;
 
-    public Locacao_Model() {
+    public LocacaoModel() {
     }
 
     public UUID getId() {
@@ -63,19 +63,19 @@ public class Locacao_Model extends Base_Model {
         this.dtFim = dtFim;
     }
 
-    public Carro_Model getId_Carro() {
+    public CarroModel getId_Carro() {
         return Id_Carro;
     }
 
-    public void setId_Carro(Carro_Model id_Carro) {
+    public void setId_Carro(CarroModel id_Carro) {
         Id_Carro = id_Carro;
     }
 
-    public Usuario_Model getId_Usuario() {
+    public UsuarioModel getId_Usuario() {
         return Id_Usuario;
     }
 
-    public void setId_Usuario(Usuario_Model id_Usuario) {
+    public void setId_Usuario(UsuarioModel id_Usuario) {
         Id_Usuario = id_Usuario;
     }
 }
