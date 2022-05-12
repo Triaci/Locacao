@@ -21,4 +21,6 @@ public class CarroController extends BaseController<CarroModel>{
         List<CarroModel> carro = carroRB.findAll();
         return  carro;
     }
+
+    public void teste(){}
 }
