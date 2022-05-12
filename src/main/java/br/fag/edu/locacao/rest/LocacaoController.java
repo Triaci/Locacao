@@ -4,6 +4,7 @@ import br.fag.edu.locacao.model.LocacaoModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -11,6 +12,6 @@ import java.util.List;
 public class LocacaoController extends BaseController<LocacaoModel>{
     @Override
     public List<LocacaoModel> list() {
-        return null;
+        return new ArrayList<>();
     }
 }
