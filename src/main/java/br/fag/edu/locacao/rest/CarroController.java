@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/carro")
@@ -18,5 +19,11 @@ public class CarroController extends BaseController<CarroModel>{
     public List<CarroModel> list() {
         List<CarroModel> carro = carroRB.findAll();
         return  carro;
+
+    }
+
+    @Override
+    public CarroModel find(String id) {
+        return carroRB.getById(UUID.fromString(id));
     }
 }

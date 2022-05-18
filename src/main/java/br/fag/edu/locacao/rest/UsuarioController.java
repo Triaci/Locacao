@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
-    @RestController
+@RestController
     @RequestMapping(value = "/usuario")
     public class UsuarioController extends BaseController<UsuarioModel>{
 
@@ -19,6 +20,12 @@ import java.util.List;
         public List<UsuarioModel> list() {
             List<UsuarioModel> usuario = usuarioRB.findAll();
             return  usuario;
+
+        }
+
+        @Override
+        public UsuarioModel find(String id) {
+            return usuarioRB.getById(UUID.fromString(id));
 
         }
     }

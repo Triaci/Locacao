@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/locacao")
@@ -18,6 +19,12 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     public List<LocacaoModel> list() {
          List<LocacaoModel> locacao = locacaoRB.findAll();
         return  locacao;
+
+    }
+
+    @Override
+    public LocacaoModel find(String id) {
+        return locacaoRB.getById(UUID.fromString(id));
 
     }
 }
