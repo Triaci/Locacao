@@ -16,7 +16,7 @@ public abstract class BaseController<T> {
     public  abstract T find(@RequestParam String id);
 
     @PostMapping("/insert")
-    public abstract void insert(@RequestBody T insertObjeto);
+    public abstract void insert(@RequestBody T insertObjeto) throws Exception;
 
     @PostMapping("/update")
     public abstract void update(@RequestBody T updateObjeto);

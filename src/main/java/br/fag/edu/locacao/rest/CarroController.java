@@ -29,7 +29,7 @@ public class CarroController extends BaseController<CarroModel>{
     }
 
     @Override
-    public void insert(@RequestBody CarroModel carro) {
+    public void insert(@RequestBody CarroModel carro) throws Exception {
         if(carro.getModelo() == null){
             throw new Exception("Modelo inválido!");
         }
