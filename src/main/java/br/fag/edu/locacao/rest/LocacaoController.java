@@ -31,12 +31,11 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     @Override
     public void insert(LocacaoModel locacao) throws Exception{
             if(locacao.getValorLocado() == Double.parseDouble(null) || locacao.getValorLocado() <= 0){
-
                 throw new Exception("Valor inválido!");
 
             } else if(locacao.getDtInicio() == null || locacao.getDtFim() == null){
-
                 throw new Exception("Data inválida!");
+
             }
 
             locacaoRB.saveAndFlush(locacao);

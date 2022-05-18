@@ -33,10 +33,13 @@ import java.util.UUID;
     public void insert(UsuarioModel usuario) throws Exception {
             if(usuario.getNome() == null){
                 throw new Exception("Nome inválido!");
+
             } else if(usuario.getCpf() == null || usuario.getCpf().length() < 11){
                 throw new Exception("CPF inválido!");
+
             } else if(usuario.getTelefone() == null){
                 throw new Exception("Telefone inválido!");
+
             }
 
             usuarioRB.saveAndFlush(usuario);
