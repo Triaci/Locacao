@@ -31,4 +31,9 @@ public class CarroController extends BaseController<CarroModel>{
     public void insert(CarroModel insertObjeto) {
         
     }
+
+    @Override
+    public void update(CarroModel updateObjeto) {
+
+    }
 }

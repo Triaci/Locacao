@@ -33,6 +33,11 @@ import java.util.UUID;
     public void insert(UsuarioModel insertObjeto) {
 
     }
+
+    @Override
+    public void update(UsuarioModel updateObjeto) {
+        
+    }
 }
 
 
