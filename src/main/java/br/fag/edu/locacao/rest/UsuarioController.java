@@ -36,7 +36,7 @@ import java.util.UUID;
 
     @Override
     public void update(UsuarioModel updateObjeto) {
-        
+
     }
 }
 
