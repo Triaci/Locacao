@@ -31,13 +31,25 @@ public class CarroController extends BaseController<CarroModel>{
     @Override
     public void insert(@RequestBody CarroModel carro) throws Exception {
         if(carro.getModelo() == null){
+
             throw new Exception("Modelo inválido!");
+
+        } else if(carro.getPlaca() == null){
+
+            throw new Exception("Placa inválida!");
+
+        } else if(carro.getMarca() == null){
+
+            throw new Exception("Marca inválida!");
+
+        } else if (carro.getAno() == Integer.parseInt(null)){
+            throw new Exception("Ano inválido!");
         }
 
         carroRB.saveAndFlush(carro);
         
     }
-
+    
     @Override
     public void update(CarroModel updateObjeto) {
 

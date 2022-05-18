@@ -17,7 +17,7 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     private LocacaoRB locacaoRB;
     @Override
     public List<LocacaoModel> list() {
-         List<LocacaoModel> locacao = locacaoRB.findAll();
+        List<LocacaoModel> locacao = locacaoRB.findAll();
         return  locacao;
 
     }
@@ -29,7 +29,17 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     }
 
     @Override
-    public void insert(LocacaoModel insertObjeto) {
+    public void insert(LocacaoModel locacao) throws Exception{
+            if(locacao.getValorLocado() == Double.parseDouble(null) || locacao.getValorLocado() <= 0){
+
+                throw new Exception("Valor inválido!");
+
+            } else if(locacao.getDtInicio() == null || locacao.getDtFim() == null){
+
+                throw new Exception("Data inválida!");
+            }
+
+            locacaoRB.saveAndFlush(locacao);
 
     }
 
