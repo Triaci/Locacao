@@ -32,4 +32,9 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     public void insert(LocacaoModel insertObjeto) {
 
     }
+
+    @Override
+    public void update(LocacaoModel updateObjeto) {
+
+    }
 }
