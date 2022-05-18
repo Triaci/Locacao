@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,5 +18,6 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     public List<LocacaoModel> list() {
          List<LocacaoModel> locacao = locacaoRB.findAll();
         return  locacao;
+
     }
 }
