@@ -39,7 +39,18 @@ public class CarroController extends BaseController<CarroModel>{
     }
 
     @Override
-    public void update(CarroModel updateObjeto) {
-
+    public void update(CarroModel updateObjeto) throws Exception {
+        if(updateObjeto.getModelo() == null){
+            throw new Exception("Modelo Inválido!");
+        }
+        if(updateObjeto.getAno() <= 1885){
+            throw new Exception("Ano Inválido!");
+        }
+        if(updateObjeto.getMarca() == null){
+            throw new Exception("Marca Inválida!");
+        }
+        if(updateObjeto.getPlaca() == null){
+            throw new Exception("Placa Inválida!");
+        }
     }
 }
