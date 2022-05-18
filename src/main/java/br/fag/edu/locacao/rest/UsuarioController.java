@@ -28,6 +28,11 @@ import java.util.UUID;
             return usuarioRB.getById(UUID.fromString(id));
 
         }
+
+    @Override
+    public void insert(UsuarioModel insertObjeto) {
+
     }
+}
 
 

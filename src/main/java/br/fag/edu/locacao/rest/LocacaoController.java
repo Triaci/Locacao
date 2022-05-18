@@ -27,4 +27,9 @@ public class LocacaoController extends BaseController<LocacaoModel>{
         return locacaoRB.getById(UUID.fromString(id));
 
     }
+
+    @Override
+    public void insert(LocacaoModel insertObjeto) {
+
+    }
 }

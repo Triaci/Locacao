@@ -26,4 +26,9 @@ public class CarroController extends BaseController<CarroModel>{
     public CarroModel find(String id) {
         return carroRB.getById(UUID.fromString(id));
     }
+
+    @Override
+    public void insert(CarroModel insertObjeto) {
+        
+    }
 }
