@@ -4,6 +4,8 @@ import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.model.LocacaoModel;
 import br.fag.edu.locacao.repository.LocacaoRB;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,31 +32,32 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     }
 
     @Override
-    public void insert(LocacaoModel locacao) throws Exception{
-            if(locacao.getValorLocado() == Double.parseDouble(null) || locacao.getValorLocado() <= 0){
-                throw new Exception("Valor inválido!");
+    public ResponseEntity<?> insert(LocacaoModel locacao) {
+            if(locacao.getValorLocado() <= 0){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Valor Inválido!");
 
             } else if(locacao.getDtInicio() == null || locacao.getDtFim() == null){
-                throw new Exception("Data inválida!");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválido!");
 
             }
 
             locacaoRB.saveAndFlush(locacao);
+            return ResponseEntity.ok().build();
 
     }
 
     @Override
-    public void update(LocacaoModel updateObjeto) throws Exception {
+    public ResponseEntity<?> update(LocacaoModel updateObjeto) {
         LocacaoModel locacaoModel = locacaoRB.findById(updateObjeto.getId()).get();
 
         if (updateObjeto.getValorLocado() == 0){
-            throw new Exception("Valor Inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Valor Inválido!");
         }
         if (updateObjeto.getDtFim() == null){
-            throw new Exception("Data Inválida!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválido!");
         }
         if (updateObjeto.getDtInicio() == null){
-            throw new Exception("Data Inválida!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválido!");
         }
 
         updateObjeto.setValorLocado(locacaoModel.getValorLocado());
@@ -62,5 +65,6 @@ public class LocacaoController extends BaseController<LocacaoModel>{
         updateObjeto.setDtInicio(locacaoModel.getDtInicio());
 
         locacaoRB.saveAndFlush(updateObjeto);
+        return ResponseEntity.ok().build();
     }
 }

@@ -4,6 +4,8 @@ import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.model.UsuarioModel;
 import br.fag.edu.locacao.repository.UsuarioRB;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,37 +33,39 @@ import java.util.UUID;
         }
 
     @Override
-    public void insert(UsuarioModel usuario) throws Exception {
+    public ResponseEntity<?> insert(UsuarioModel usuario) {
             if(usuario.getNome() == null){
-                throw new Exception("Nome inválido!");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
 
             } else if(usuario.getCpf() == null || usuario.getCpf().length() < 11){
-                throw new Exception("CPF inválido!");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
 
             } else if(usuario.getTelefone() == null){
-                throw new Exception("Telefone inválido!");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Telefone Inválido!");
 
             }
 
             usuarioRB.saveAndFlush(usuario);
+            return ResponseEntity.ok().build();
 
     }
 
     @Override
-    public void update(UsuarioModel updateObjeto) throws Exception {
+    public ResponseEntity<?> update(UsuarioModel updateObjeto) {
         UsuarioModel usuarioModel = usuarioRB.findById(updateObjeto.getId()).get();
 
             if (updateObjeto.getCpf() == null){
-            throw new Exception("CPF Inválido!");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
         if (updateObjeto.getNome() == null){
-            throw new Exception("Nome Inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
         }
 
         updateObjeto.setNome(usuarioModel.getNome());
         updateObjeto.setCpf(usuarioModel.getCpf());
 
         usuarioRB.saveAndFlush(updateObjeto);
+        return ResponseEntity.ok().build();
 
     }
 }

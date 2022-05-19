@@ -3,6 +3,8 @@ package br.fag.edu.locacao.rest;
 import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.repository.CarroRB;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,40 +31,41 @@ public class CarroController extends BaseController<CarroModel>{
     }
 
     @Override
-    public void insert(@RequestBody CarroModel carro) throws Exception {
+    public ResponseEntity<?> insert(@RequestBody CarroModel carro) {
         if(carro.getModelo() == null){
-            throw new Exception("Modelo inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Modelo Inválido!");
 
         } else if(carro.getPlaca() == null){
-            throw new Exception("Placa inválida!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválido!");
 
         } else if(carro.getMarca() == null){
-            throw new Exception("Marca inválida!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Marca Inválido!");
 
         } else if (carro.getAno() <= 1885){
-            throw new Exception("Ano inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Ano Inválido!");
 
         }
 
         carroRB.saveAndFlush(carro);
+        return ResponseEntity.ok().build();
         
     }
     
     @Override
-    public void update(CarroModel updateObjeto) throws Exception {
+    public ResponseEntity<?> update(CarroModel updateObjeto) {
         CarroModel carro = carroRB.findById(updateObjeto.getId()).get();
 
         if(updateObjeto.getModelo() == null){
-            throw new Exception("Modelo Inválido!");
+           return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Modelo Inválido!");
         }
         if(updateObjeto.getAno() <= 1885){
-            throw new Exception("Ano Inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Ano Inválido!");
         }
         if(updateObjeto.getMarca() == null){
-            throw new Exception("Marca Inválida!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Marca Inválido!");
         }
         if(updateObjeto.getPlaca() == null){
-            throw new Exception("Placa Inválida!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválido!");
         }
         updateObjeto.setAno(carro.getAno());
         updateObjeto.setMarca(carro.getMarca());
@@ -70,5 +73,6 @@ public class CarroController extends BaseController<CarroModel>{
         updateObjeto.setPlaca(carro.getPlaca());
 
         carroRB.saveAndFlush(updateObjeto);
+        return ResponseEntity.ok().build();
     }
 }
