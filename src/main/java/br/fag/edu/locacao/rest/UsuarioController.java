@@ -6,7 +6,9 @@ import br.fag.edu.locacao.repository.UsuarioRB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -51,10 +53,10 @@ import java.util.UUID;
     }
 
     @Override
-    public ResponseEntity<?> update(UsuarioModel updateObjeto) {
+    public ResponseEntity<?> update(@RequestBody UsuarioModel updateObjeto) {
         UsuarioModel usuarioModel = usuarioRB.findById(updateObjeto.getId()).get();
 
-            if (updateObjeto.getCpf() == null){
+        if (updateObjeto.getCpf() == null){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
         if (updateObjeto.getNome() == null){

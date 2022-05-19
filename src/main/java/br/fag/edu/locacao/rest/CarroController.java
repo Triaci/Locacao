@@ -52,7 +52,7 @@ public class CarroController extends BaseController<CarroModel>{
     }
     
     @Override
-    public ResponseEntity<?> update(CarroModel updateObjeto) {
+    public ResponseEntity<?> update(@RequestBody CarroModel updateObjeto) {
         CarroModel carro = carroRB.findById(updateObjeto.getId()).get();
 
         if(updateObjeto.getModelo() == null){
@@ -67,10 +67,10 @@ public class CarroController extends BaseController<CarroModel>{
         if(updateObjeto.getPlaca() == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválido!");
         }
-        updateObjeto.setAno(carro.getAno());
-        updateObjeto.setMarca(carro.getMarca());
-        updateObjeto.setModelo(carro.getModelo());
-        updateObjeto.setPlaca(carro.getPlaca());
+        carro.setAno(updateObjeto.getAno());
+        carro.setMarca(updateObjeto.getMarca());
+        carro.setModelo(updateObjeto.getModelo());
+        carro.setPlaca(updateObjeto.getPlaca());
 
         carroRB.saveAndFlush(updateObjeto);
         return ResponseEntity.ok().build();

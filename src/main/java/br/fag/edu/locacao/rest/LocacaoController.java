@@ -6,6 +6,7 @@ import br.fag.edu.locacao.repository.LocacaoRB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,7 +48,7 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     }
 
     @Override
-    public ResponseEntity<?> update(LocacaoModel updateObjeto) {
+    public ResponseEntity<?> update(@RequestBody LocacaoModel updateObjeto) {
         LocacaoModel locacaoModel = locacaoRB.findById(updateObjeto.getId()).get();
 
         if (updateObjeto.getValorLocado() == 0){
