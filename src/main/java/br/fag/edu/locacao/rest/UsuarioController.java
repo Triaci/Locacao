@@ -1,5 +1,6 @@
 package br.fag.edu.locacao.rest;
 
+import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.model.UsuarioModel;
 import br.fag.edu.locacao.repository.UsuarioRB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +49,20 @@ import java.util.UUID;
 
     @Override
     public void update(UsuarioModel updateObjeto) throws Exception {
-        if (updateObjeto.getCpf() == null){
+        UsuarioModel usuarioModel = usuarioRB.findById(updateObjeto.getId()).get();
+
+            if (updateObjeto.getCpf() == null){
             throw new Exception("CPF Inválido!");
         }
         if (updateObjeto.getNome() == null){
             throw new Exception("Nome Inválido!");
         }
+
+        updateObjeto.setNome(usuarioModel.getNome());
+        updateObjeto.setCpf(usuarioModel.getCpf());
+
+        usuarioRB.saveAndFlush(updateObjeto);
+
     }
 }
 

@@ -1,5 +1,6 @@
 package br.fag.edu.locacao.rest;
 
+import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.model.LocacaoModel;
 import br.fag.edu.locacao.repository.LocacaoRB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,22 @@ public class LocacaoController extends BaseController<LocacaoModel>{
 
     @Override
     public void update(LocacaoModel updateObjeto) throws Exception {
+        LocacaoModel locacaoModel = locacaoRB.findById(updateObjeto.getId()).get();
+
+        if (updateObjeto.getValorLocado() == 0){
+            throw new Exception("Valor Inválido!");
+        }
+        if (updateObjeto.getDtFim() == null){
+            throw new Exception("Data Inválida!");
+        }
+        if (updateObjeto.getDtInicio() == null){
+            throw new Exception("Data Inválida!");
+        }
+
+        updateObjeto.setValorLocado(locacaoModel.getValorLocado());
+        updateObjeto.setDtFim(locacaoModel.getDtFim());
+        updateObjeto.setDtInicio(locacaoModel.getDtInicio());
+
+        locacaoRB.saveAndFlush(updateObjeto);
     }
 }
