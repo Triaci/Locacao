@@ -50,6 +50,8 @@ public class CarroController extends BaseController<CarroModel>{
     
     @Override
     public void update(CarroModel updateObjeto) throws Exception {
+        CarroModel carro = carroRB.findById(updateObjeto.getId()).get();
+
         if(updateObjeto.getModelo() == null){
             throw new Exception("Modelo Inválido!");
         }
@@ -62,6 +64,10 @@ public class CarroController extends BaseController<CarroModel>{
         if(updateObjeto.getPlaca() == null){
             throw new Exception("Placa Inválida!");
         }
+        updateObjeto.setAno(carro.getAno());
+        updateObjeto.setMarca(carro.getMarca());
+        updateObjeto.setModelo(carro.getModelo());
+        updateObjeto.setPlaca(carro.getPlaca());
 
         carroRB.saveAndFlush(updateObjeto);
     }
