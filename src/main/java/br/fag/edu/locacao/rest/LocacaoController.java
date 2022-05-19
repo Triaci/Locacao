@@ -37,7 +37,7 @@ public class LocacaoController extends BaseController<LocacaoModel>{
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Valor Inválido!");
 
             } else if(locacao.getDtInicio() == null || locacao.getDtFim() == null){
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválido!");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválida!");
 
             }
 
@@ -54,10 +54,10 @@ public class LocacaoController extends BaseController<LocacaoModel>{
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Valor Inválido!");
         }
         if (updateObjeto.getDtFim() == null){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválida!");
         }
         if (updateObjeto.getDtInicio() == null){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Data Inválida!");
         }
 
         updateObjeto.setValorLocado(locacaoModel.getValorLocado());

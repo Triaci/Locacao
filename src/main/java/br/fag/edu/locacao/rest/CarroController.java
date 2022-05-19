@@ -36,10 +36,10 @@ public class CarroController extends BaseController<CarroModel>{
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Modelo Inválido!");
 
         } else if(carro.getPlaca() == null){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválida!");
 
         } else if(carro.getMarca() == null){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Marca Inválido!");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Marca Inválida!");
 
         } else if (carro.getAno() <= 1885){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Ano Inválido!");
