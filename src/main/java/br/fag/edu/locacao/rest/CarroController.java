@@ -62,5 +62,7 @@ public class CarroController extends BaseController<CarroModel>{
         if(updateObjeto.getPlaca() == null){
             throw new Exception("Placa Inválida!");
         }
+
+        carroRB.saveAndFlush(updateObjeto);
     }
 }

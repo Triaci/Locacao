@@ -43,7 +43,6 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     }
 
     @Override
-    public void update(LocacaoModel updateObjeto) {
-
+    public void update(LocacaoModel updateObjeto) throws Exception {
     }
 }

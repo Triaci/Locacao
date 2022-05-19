@@ -47,8 +47,13 @@ import java.util.UUID;
     }
 
     @Override
-    public void update(UsuarioModel updateObjeto) {
-
+    public void update(UsuarioModel updateObjeto) throws Exception {
+        if (updateObjeto.getCpf() == null){
+            throw new Exception("CPF Inválido!");
+        }
+        if (updateObjeto.getNome() == null){
+            throw new Exception("Nome Inválido!");
+        }
     }
 }
 
