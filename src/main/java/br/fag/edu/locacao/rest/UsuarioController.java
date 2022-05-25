@@ -40,9 +40,6 @@ import java.util.UUID;
             if(usuario.getNome() == null){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
 
-            } else if(usuario.getCpf() == null || usuario.getCpf().length() < 11){
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
-
             } else if(usuario.getTelefone() == null){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Telefone Inválido!");
 
