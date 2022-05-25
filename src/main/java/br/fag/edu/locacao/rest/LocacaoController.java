@@ -2,8 +2,10 @@ package br.fag.edu.locacao.rest;
 
 import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.model.LocacaoModel;
+import br.fag.edu.locacao.model.UsuarioModel;
 import br.fag.edu.locacao.repository.CarroRB;
 import br.fag.edu.locacao.repository.LocacaoRB;
+import br.fag.edu.locacao.repository.UsuarioRB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,11 @@ public class LocacaoController extends BaseController<LocacaoModel>{
 
     @Autowired
     private LocacaoRB locacaoRB;
+    @Autowired
     private CarroRB   carroRB;
+    @Autowired
+    private UsuarioRB usuarioRB;
+
     @Override
     public List<LocacaoModel> list() {
         List<LocacaoModel> locacao = locacaoRB.findAll();
@@ -35,19 +41,30 @@ public class LocacaoController extends BaseController<LocacaoModel>{
     }
 
     @Override
-    public ResponseEntity<?> insert(LocacaoModel locacao) {
+    public ResponseEntity<?> insert(@RequestBody LocacaoModel locacao) {
 
-            if (locacao.getId_Carro() == null){
+            if (locacao.getCarro() == null){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("Carro deve ser informado");
             }
-           CarroModel carroModel = carroRB.findById(locacao.getId_Carro().getId())
-                   .orElse(null);
+           CarroModel carroModel = carroRB.findById(locacao.getCarro().getId()).get();
             if (carroModel == null){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                        .body("Jogador ID incorreto");
+                        .body("Carro ID incorreto");
             }
-            if(locacao.getValorLocado() <= 0){
+
+            if (locacao.getUsuario() == null){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                     .body("Usuário deve ser informado");
+             }
+             UsuarioModel usuarioModel = usuarioRB.findById(locacao.getUsuario().getId()).get();
+             if (usuarioModel == null){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                     .body("Usuario ID incorreto");
+             }
+
+
+        if(locacao.getValorLocado() <= 0){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Valor Inválido!");
 
             } else if(locacao.getDtInicio() == null || locacao.getDtFim() == null){

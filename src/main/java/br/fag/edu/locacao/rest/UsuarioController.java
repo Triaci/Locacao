@@ -35,7 +35,8 @@ import java.util.UUID;
         }
 
     @Override
-    public ResponseEntity<?> insert(UsuarioModel usuario) {
+    public ResponseEntity<?> insert(@RequestBody UsuarioModel usuario) {
+
             if(usuario.getNome() == null){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
 

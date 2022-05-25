@@ -23,10 +23,10 @@ public class LocacaoModel extends BaseModel {
     private Date dtFim;
 
     @OneToOne
-    private CarroModel Id_Carro;
+    private CarroModel carro;
 
     @OneToOne
-    private UsuarioModel Id_Usuario;
+    private UsuarioModel usuario;
 
     public LocacaoModel() {
     }
@@ -63,19 +63,19 @@ public class LocacaoModel extends BaseModel {
         this.dtFim = dtFim;
     }
 
-    public CarroModel getId_Carro() {
-        return Id_Carro;
+    public CarroModel getCarro() {
+        return carro;
     }
 
-    public void setId_Carro(CarroModel id_Carro) {
-        Id_Carro = id_Carro;
+    public void setCarro(CarroModel id_Carro) {
+        carro = id_Carro;
     }
 
-    public UsuarioModel getId_Usuario() {
-        return Id_Usuario;
+    public UsuarioModel getUsuario() {
+        return usuario;
     }
 
-    public void setId_Usuario(UsuarioModel id_Usuario) {
-        Id_Usuario = id_Usuario;
+    public void setUsuario(UsuarioModel id_Usuario) {
+        usuario = id_Usuario;
     }
 }

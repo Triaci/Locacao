@@ -20,9 +20,6 @@ public class UsuarioModel extends BaseModel {
     @Column
     private String telefone;
 
-    @OneToOne
-    private UsuarioModel usuario_model;
-
 
     public UUID getId() {
         return Id;
