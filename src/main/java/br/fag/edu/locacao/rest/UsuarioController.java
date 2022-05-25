@@ -60,9 +60,14 @@ import java.util.UUID;
     public ResponseEntity<?> update(@RequestBody UsuarioModel updateObjeto) {
         UsuarioModel usuarioModel = usuarioRB.findById(updateObjeto.getId()).get();
 
-        if (updateObjeto.getCpf() != usuarioModel.getCpf() && usuarioModel.getCpf().length() < 15){
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
+        try {
+            CPFValidator cpfValidator = new CPFValidator();
+            cpfValidator.assertValid(updateObjeto.getCpf());
+
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
+
         if (updateObjeto.getNome() != usuarioModel.getNome() && updateObjeto.getNome() == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
         }
