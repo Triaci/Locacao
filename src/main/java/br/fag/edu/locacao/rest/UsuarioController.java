@@ -63,12 +63,15 @@ import java.util.UUID;
     public ResponseEntity<?> update(@RequestBody UsuarioModel updateObjeto) {
         UsuarioModel usuarioModel = usuarioRB.findById(updateObjeto.getId()).get();
 
-        if (updateObjeto.getCpf() == null){
+        if (updateObjeto.getCpf() != usuarioModel.getCpf() && usuarioModel.getCpf().length() < 15){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
-        if (updateObjeto.getNome() == null){
+        if (updateObjeto.getNome() != usuarioModel.getNome() && updateObjeto.getNome() == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
         }
+        if(updateObjeto.getTelefone() != usuarioModel.getTelefone() && updateObjeto.getTelefone() == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Telefone Inválido!");
+        }else{updateObjeto.setTelefone(usuarioModel.getNome());}
 
         updateObjeto.setNome(usuarioModel.getNome());
         updateObjeto.setCpf(usuarioModel.getCpf());
