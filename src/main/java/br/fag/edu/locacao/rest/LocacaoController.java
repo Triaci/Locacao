@@ -2,6 +2,7 @@ package br.fag.edu.locacao.rest;
 
 import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.model.LocacaoModel;
+import br.fag.edu.locacao.repository.CarroRB;
 import br.fag.edu.locacao.repository.LocacaoRB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class LocacaoController extends BaseController<LocacaoModel>{
 
     @Autowired
     private LocacaoRB locacaoRB;
+    private CarroRB   carroRB;
     @Override
     public List<LocacaoModel> list() {
         List<LocacaoModel> locacao = locacaoRB.findAll();
@@ -34,6 +36,17 @@ public class LocacaoController extends BaseController<LocacaoModel>{
 
     @Override
     public ResponseEntity<?> insert(LocacaoModel locacao) {
+
+            if (locacao.getId_Carro() == null){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Carro deve ser informado");
+            }
+           CarroModel carroModel = carroRB.findById(locacao.getId_Carro().getId())
+                   .orElse(null);
+            if (carroModel == null){
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("Jogador ID incorreto");
+            }
             if(locacao.getValorLocado() <= 0){
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Valor Inválido!");
 
