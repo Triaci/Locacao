@@ -1,6 +1,6 @@
 package br.fag.edu.locacao.rest;
 
-import br.fag.edu.locacao.model.CarroModel;
+
 import br.fag.edu.locacao.model.UsuarioModel;
 import br.fag.edu.locacao.repository.UsuarioRB;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import br.com.caelum.stella.validation.CPFValidator;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -48,11 +48,17 @@ import java.util.UUID;
 
             }
 
+            try {
+                CPFValidator cpfValidator = new CPFValidator();
+                cpfValidator.assertValid(usuario.getCpf());
+                
+             }catch (Exception e){
+                return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
+            }
+
             usuarioRB.saveAndFlush(usuario);
             return ResponseEntity.ok().build();
-
     }
-
     @Override
     public ResponseEntity<?> update(@RequestBody UsuarioModel updateObjeto) {
         UsuarioModel usuarioModel = usuarioRB.findById(updateObjeto.getId()).get();
