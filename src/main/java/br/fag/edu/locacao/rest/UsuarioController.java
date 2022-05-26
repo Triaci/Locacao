@@ -3,6 +3,7 @@ package br.fag.edu.locacao.rest;
 
 import br.fag.edu.locacao.model.UsuarioModel;
 import br.fag.edu.locacao.repository.UsuarioRB;
+import br.fag.edu.locacao.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ import java.util.UUID;
 
         @Autowired
         private UsuarioRB usuarioRB;
+
+        @Autowired
+        private UsuarioService usuarioService;
 
         @Override
         public List<UsuarioModel> list() {
@@ -48,6 +52,8 @@ import java.util.UUID;
             try {
                 CPFValidator cpfValidator = new CPFValidator();
                 cpfValidator.assertValid(usuario.getCpf());
+
+                usuarioService.findByCpf(usuario.getCpf());
                 
              }catch (Exception e){
                 return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
@@ -63,6 +69,8 @@ import java.util.UUID;
         try {
             CPFValidator cpfValidator = new CPFValidator();
             cpfValidator.assertValid(usuarioModel.getCpf());
+
+            usuarioService.findByCpf(usuarioModel.getCpf());
 
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
