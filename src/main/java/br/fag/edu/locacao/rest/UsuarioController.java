@@ -67,7 +67,7 @@ import java.util.UUID;
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
-        
+
         if (updateObjeto.getNome()  == null){
 
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");

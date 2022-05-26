@@ -10,4 +10,6 @@ public class LocacaoService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+
 }
