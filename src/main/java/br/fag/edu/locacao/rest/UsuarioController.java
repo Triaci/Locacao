@@ -62,11 +62,12 @@ import java.util.UUID;
 
         try {
             CPFValidator cpfValidator = new CPFValidator();
-            cpfValidator.assertValid(updateObjeto.getCpf());
+            cpfValidator.assertValid(usuarioModel.getCpf());
 
         }catch (Exception e){
-            return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
+            ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
+
 
         if (updateObjeto.getNome() != usuarioModel.getNome() && updateObjeto.getNome() == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
