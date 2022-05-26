@@ -2,6 +2,7 @@ package br.fag.edu.locacao.rest;
 
 import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.repository.CarroRB;
+import br.fag.edu.locacao.service.CarroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,10 @@ public class CarroController extends BaseController<CarroModel>{
 
     @Autowired
     private CarroRB carroRB;
+
+    @Autowired
+    private CarroService carroService;
+
     @Override
     public List<CarroModel> list() {
         List<CarroModel> carro = carroRB.findAll();
@@ -32,11 +37,13 @@ public class CarroController extends BaseController<CarroModel>{
 
     @Override
     public ResponseEntity<?> insert(@RequestBody CarroModel carro) {
+        CarroService carroService = new CarroService();
+
         if(carro.getModelo() == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Modelo Inválido!");
 
-        } else if(carro.getPlaca() == null){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválida!");
+        } else if(carro.getPlaca() == null || carroService.findByPlaca(carro.getPlaca()) != null ){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválida ou Já Cadastrada no Sistema!");
 
         } else if(carro.getMarca() == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Marca Inválida!");
@@ -67,6 +74,7 @@ public class CarroController extends BaseController<CarroModel>{
         if(updateObjeto.getPlaca() == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Placa Inválida!");
         }
+
         carro.setAno(updateObjeto.getAno());
         carro.setMarca(updateObjeto.getMarca());
         carro.setModelo(updateObjeto.getModelo());
