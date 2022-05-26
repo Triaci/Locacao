@@ -68,10 +68,10 @@ import java.util.UUID;
             return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
 
-        if (updateObjeto.getNome() != usuarioModel.getNome() && updateObjeto.getNome() == null){
+        if (updateObjeto.getNome()  == null){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nome Inválido!");
         }
-        if(updateObjeto.getTelefone() != usuarioModel.getTelefone() && updateObjeto.getTelefone() == null) {
+        if(updateObjeto.getTelefone()  == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Telefone Inválido!");
         }else{updateObjeto.setTelefone(usuarioModel.getNome());}
 
