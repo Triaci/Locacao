@@ -16,8 +16,7 @@ public class UsuarioService {
 
     public UsuarioModel findByNome(String nome) {
         try {
-            return entityManager.createQuery("select j from" +
-                            "UsuarioModel where j.nome = :nome", UsuarioModel.class)
+            return entityManager.createQuery("select j from UsuarioModel j where j.nome = :nome", UsuarioModel.class)
                     .setParameter("nome", nome).getSingleResult();
         } catch (NoResultException nre) {
             return null;
@@ -26,15 +25,14 @@ public class UsuarioService {
         }
     }
 
-    public UsuarioModel findByCpf(String cpf) {
+    public UsuarioModel findByCpf(String cpf) throws Exception {
         try {
-            return entityManager.createQuery("select j from" +
-                            "UsuarioModel where j.cpf = :cpf", UsuarioModel.class)
+            return entityManager.createQuery("select j from UsuarioModel j where j.cpf = :cpf", UsuarioModel.class)
                     .setParameter("cpf", cpf).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         } catch (NonUniqueResultException nur) {
-            return null;
+            throw new Exception("Mais de um resultado encontrado");
         }
     }
 }

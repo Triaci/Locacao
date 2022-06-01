@@ -98,4 +98,19 @@ public class LocacaoController extends BaseController<LocacaoModel>{
         locacaoRB.saveAndFlush(updateObjeto);
         return ResponseEntity.ok().build();
     }
+
+    @Override
+    public ResponseEntity<?> delete(String id){
+        try {
+            LocacaoModel locacao = locacaoRB.findById(UUID.fromString(id)).orElse(null);
+            locacaoRB.delete(locacao);
+            return ResponseEntity.ok().build();
+
+        }catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Erro ao Excluir" + e.getCause() + " Message " + e.getMessage());
+        }
+    }
+
 }

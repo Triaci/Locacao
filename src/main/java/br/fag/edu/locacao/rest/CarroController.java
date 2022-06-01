@@ -3,6 +3,7 @@ package br.fag.edu.locacao.rest;
 import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.repository.CarroRB;
 import br.fag.edu.locacao.service.CarroService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,7 @@ public class CarroController extends BaseController<CarroModel>{
 
         }
 
+
         carroRB.saveAndFlush(carro);
         return ResponseEntity.ok().build();
         
@@ -83,4 +85,19 @@ public class CarroController extends BaseController<CarroModel>{
         carroRB.saveAndFlush(updateObjeto);
         return ResponseEntity.ok().build();
     }
+
+ @Override
+ public ResponseEntity<?> delete(String id){
+        try {
+            CarroModel carro = carroRB.findById(UUID.fromString(id)).orElse(null);
+            carroRB.delete(carro);
+            return ResponseEntity.ok().build();
+
+        }catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Erro ao Excluir" + e.getCause() + " Message " + e.getMessage());
+        }
+ }
+
 }

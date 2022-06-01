@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.Id;
 import java.util.List;
 
 public abstract class BaseController<T> {
@@ -22,4 +23,6 @@ public abstract class BaseController<T> {
     @PostMapping("/update")
     public abstract ResponseEntity<?> update(@RequestBody T updateObjeto);
 
+    @GetMapping("/delete")
+    public abstract ResponseEntity<?> delete(@RequestParam String id);
 }

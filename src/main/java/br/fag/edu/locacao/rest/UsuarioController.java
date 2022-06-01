@@ -1,6 +1,7 @@
 package br.fag.edu.locacao.rest;
 
 
+import br.fag.edu.locacao.model.CarroModel;
 import br.fag.edu.locacao.model.UsuarioModel;
 import br.fag.edu.locacao.repository.UsuarioRB;
 import br.fag.edu.locacao.service.UsuarioService;
@@ -52,8 +53,9 @@ import java.util.UUID;
             try {
                 CPFValidator cpfValidator = new CPFValidator();
                 cpfValidator.assertValid(usuario.getCpf());
-
-                usuarioService.findByCpf(usuario.getCpf());
+                if(usuarioService.findByCpf(usuario.getCpf()) != null){
+                    throw new Exception("CPF Já Cadastrado !");
+                }
                 
              }catch (Exception e){
                 return  ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
@@ -69,9 +71,9 @@ import java.util.UUID;
         try {
             CPFValidator cpfValidator = new CPFValidator();
             cpfValidator.assertValid(usuarioModel.getCpf());
-
-            usuarioService.findByCpf(usuarioModel.getCpf());
-
+            if(usuarioService.findByCpf(usuarioModel.getCpf()) != null){
+                throw new Exception("CPF Já Cadastrado !");
+            }
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.FORBIDDEN).body("CPF Inválido!");
         }
@@ -90,6 +92,21 @@ import java.util.UUID;
         usuarioRB.saveAndFlush(updateObjeto);
         return ResponseEntity.ok().build();
 
+    }
+
+
+    @Override
+    public ResponseEntity<?> delete(String id){
+        try {
+            UsuarioModel usuario = usuarioRB.findById(UUID.fromString(id)).orElse(null);
+            usuarioRB.delete(usuario);
+            return ResponseEntity.ok().build();
+
+        }catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Erro ao Excluir" + e.getCause() + " Message " + e.getMessage());
+        }
     }
 }
 
