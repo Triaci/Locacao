@@ -17,7 +17,7 @@ public class UsuarioService {
     public UsuarioModel findByNome(String nome) {
         try {
             return entityManager.createQuery("select j from UsuarioModel j where j.nome = :nome", UsuarioModel.class)
-                    .setParameter("nome", nome).getSingleResult();
+                     .setParameter("nome", nome).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         } catch (NonUniqueResultException nur) {

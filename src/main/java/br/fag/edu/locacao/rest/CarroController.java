@@ -6,6 +6,7 @@ import br.fag.edu.locacao.service.CarroService;
 import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/carro")
+@RequestMapping(value = "/carro", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CarroController extends BaseController<CarroModel>{
 
     @Autowired

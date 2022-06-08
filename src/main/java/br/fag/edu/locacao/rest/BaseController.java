@@ -1,5 +1,6 @@
 package br.fag.edu.locacao.rest;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public abstract class BaseController<T> {
 
-    @GetMapping("/list")
+    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public abstract List<T> list();
 
     @GetMapping("/find")
